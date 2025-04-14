@@ -47,7 +47,7 @@ export async function ListTransactions({ limit }: { limit?: number }) {
                                     day: '2-digit'
                                 })}
                             </div>
-                            <Link href={`/home/extracts/${transaction.id}`} data-modal-target="popup-modal" data-modal-toggle="popup-modal" className="border border-red-500 rounded p-2 ml-4 bg-red-500 cursor-pointer" >
+                            <Link href={`/home/extracts/${transaction.authentication}`} data-modal-target="popup-modal" data-modal-toggle="popup-modal" className="border border-red-500 rounded p-2 ml-4 bg-red-500 cursor-pointer" >
                                 <strong className="text-white">x</strong>
                             </Link>
                         </div>

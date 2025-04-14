@@ -111,3 +111,37 @@ export async function transfer(_: IInitialState, formData: FormData): Promise<II
         message: "Transferência realizada com sucesso",
     }
 }
+
+export async function redund(authentication: string) {
+
+    const cookieStore = await cookies();
+
+    const response = await fetch("http://localhost:4000/transactions/refund", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${cookieStore.get('token')?.value}`,
+        },
+        body: JSON.stringify({
+            authentication
+        }),
+    });
+
+
+    if (!response.ok) {
+
+        const data = await response.json();
+        console.log("errr data", data);
+        return {
+            success: false,
+            message: data.message,
+        }
+    }
+
+    redirect("/home/extracts")
+
+    return {
+        success: true,
+        message: "Cancelamento realizada com sucesso",
+    }
+}
