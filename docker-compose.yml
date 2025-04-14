@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  api:
+    build: ./g-fake-bank-api
+    container_name: nest-api
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/fake_bank
+      DATABASE_USER: postgres
+      DATABASE_PASS: postgres
+      DATABASE_URI: db
+      JWT_SECRET: token_test
+    restart: unless-stopped
+
+  db:
+    image: postgres:15
+    container_name: postgres-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: fake_bank
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  pgdata:
